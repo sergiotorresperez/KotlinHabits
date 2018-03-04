@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">KotlinHabitTrainer</string>
+    <string name="default_title">Texto titulo</string>
+    <string name="default_description">Descripcion da sdask djakd jask</string>
+</resources>
