@@ -9,6 +9,7 @@ import android.provider.MediaStore
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.View
+import android.widget.EditText
 import com.garrapeta.kotlinhabittrainer.R
 import kotlinx.android.synthetic.main.activity_create_habit.*
 import java.io.IOException
@@ -76,7 +77,7 @@ class CreateHabitActivity : AppCompatActivity() {
 
     private fun onSaveHabit() {
 
-        if (et_habit_title.text.toString().isBlank() || et_habit_description.text.toString().isBlank()) {
+        if (et_habit_title.isBlank() || et_habit_description.isBlank()) {
             displayError("Title and description should not be null")
             return
         } else if (imageBitmap == null) {
@@ -94,5 +95,6 @@ class CreateHabitActivity : AppCompatActivity() {
             text = message
         }
     }
-
 }
+
+fun EditText.isBlank() = this.text.toString().isBlank()
