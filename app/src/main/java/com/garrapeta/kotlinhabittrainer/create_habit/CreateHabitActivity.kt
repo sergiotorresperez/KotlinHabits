@@ -11,6 +11,8 @@ import android.util.Log
 import android.view.View
 import android.widget.EditText
 import com.garrapeta.kotlinhabittrainer.R
+import com.garrapeta.kotlinhabittrainer.db.HabitDbTable
+import com.garrapeta.kotlinhabittrainer.domain.Habit
 import kotlinx.android.synthetic.main.activity_create_habit.*
 import java.io.IOException
 
@@ -85,8 +87,14 @@ class CreateHabitActivity : AppCompatActivity() {
             return
         }
 
-        TODO("Store the habit")
+        val title = et_habit_title.text.toString()
+        val description = et_habit_description.text.toString()
+        val habit = Habit(title, description, imageBitmap!!)
 
+        val id = HabitDbTable(this).store(habit)
+        Log.i(TAG, "Stored habit with it $id")
+
+        finish()
     }
 
     private fun displayError(message: String) {
