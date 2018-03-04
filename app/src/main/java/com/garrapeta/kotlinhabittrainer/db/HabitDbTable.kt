@@ -4,6 +4,10 @@ import android.content.ContentValues
 import android.content.Context
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
+import com.garrapeta.kotlinhabittrainer.db.HabitEntry.COL_DESCRIPTION
+import com.garrapeta.kotlinhabittrainer.db.HabitEntry.COL_IMAGE
+import com.garrapeta.kotlinhabittrainer.db.HabitEntry.COL_TITLE
+import com.garrapeta.kotlinhabittrainer.db.HabitEntry.TABLE_NAME
 import com.garrapeta.kotlinhabittrainer.domain.Habit
 
 class HabitDbTable(context : Context) {
@@ -13,20 +17,20 @@ class HabitDbTable(context : Context) {
     fun store(habit : Habit) : Long? {
         val contentValues = ContentValues()
         with(contentValues) {
-            put(HabitEntry.COL_TITLE, habit.title)
-            put(HabitEntry.COL_DESCRIPTION, habit.description)
-            put(HabitEntry.COL_IMAGE, habit.imageBitmap.toByteArray())
+            put(COL_TITLE, habit.title)
+            put(COL_DESCRIPTION, habit.description)
+            put(COL_IMAGE, habit.imageBitmap.toByteArray())
         }
 
         val db: SQLiteDatabase = dbHelper.writableDatabase
-        return db.transaction({insert(HabitEntry.TABLE_NAME, null, contentValues)})
+        return db.transaction({insert(TABLE_NAME, null, contentValues)})
     }
 
     fun readAll() : List<Habit> {
         val db: SQLiteDatabase = dbHelper.writableDatabase
-        val projection = arrayOf(HabitEntry.COL_TITLE, HabitEntry.COL_DESCRIPTION, HabitEntry.COL_IMAGE)
+        val projection = arrayOf(COL_TITLE, COL_DESCRIPTION, COL_IMAGE)
         val orderBy = "${HabitEntry.COL_ID} ASC"
-        val cursor = db.doQuery(table = HabitEntry.TABLE_NAME, columns = projection, orderBy = orderBy)
+        val cursor = db.doQuery(table = TABLE_NAME, columns = projection, orderBy = orderBy)
 
         return parseHabits(cursor)
     }
@@ -44,9 +48,9 @@ class HabitDbTable(context : Context) {
     }
 
     private fun parseHabit(cursor: Cursor): Habit {
-        val title = cursor.getString(HabitEntry.COL_TITLE)
-        val description = cursor.getString(HabitEntry.COL_DESCRIPTION)
-        val imageBitmap = cursor.getBitmap(HabitEntry.COL_IMAGE)
+        val title = cursor.getString(COL_TITLE)
+        val description = cursor.getString(COL_DESCRIPTION)
+        val imageBitmap = cursor.getBitmap(COL_IMAGE)
 
         return Habit(title, description, imageBitmap)
     }
