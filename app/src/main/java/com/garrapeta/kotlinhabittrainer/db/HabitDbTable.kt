@@ -23,25 +23,27 @@ class HabitDbTable(context : Context) {
     }
 
     fun readAll() : List<Habit> {
-        val habits = mutableListOf<Habit>()
-
         val db: SQLiteDatabase = dbHelper.writableDatabase
         val projection = arrayOf(HabitEntry.COL_TITLE, HabitEntry.COL_DESCRIPTION, HabitEntry.COL_IMAGE)
         val orderBy = "${HabitEntry.COL_ID} ASC"
         val cursor = db.doQuery(table = HabitEntry.TABLE_NAME, columns = projection, orderBy = orderBy)
 
+        return parseHabits(cursor)
+    }
+
+    private fun parseHabits(cursor: Cursor): MutableList<Habit> {
+        val habits = mutableListOf<Habit>()
+
         cursor.use {
-            it.moveToFirst()
-            while (!it.isAfterLast) {
-                habits.add(createHabit(it))
-                cursor.moveToNext()
+            while (it.moveToNext()) {
+                habits.add(parseHabit(it))
             }
         }
 
         return habits
     }
 
-    private fun createHabit(cursor: Cursor): Habit {
+    private fun parseHabit(cursor: Cursor): Habit {
         val title = cursor.getString(HabitEntry.COL_TITLE)
         val description = cursor.getString(HabitEntry.COL_DESCRIPTION)
         val imageBitmap = cursor.getBitmap(HabitEntry.COL_IMAGE)
