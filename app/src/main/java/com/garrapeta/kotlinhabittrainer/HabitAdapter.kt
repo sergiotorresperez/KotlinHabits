@@ -8,7 +8,7 @@ import android.widget.ImageView
 import android.widget.TextView
 
 internal class HabitAdapter(private val items: List<HabitItem>) : RecyclerView.Adapter<HabitAdapter.HabitViewHolder>() {
-    
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HabitViewHolder {
         val inflater = LayoutInflater.from(parent.context)
