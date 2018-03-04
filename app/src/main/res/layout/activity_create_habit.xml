@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.garrapeta.kotlinhabittrainer.create_habit.CreateHabitActitivy">
+    tools:context="com.garrapeta.kotlinhabittrainer.create_habit.CreateHabitActivity">
 
     <EditText
         android:id="@+id/et_habit_title"
@@ -34,17 +34,17 @@
         tools:src="@drawable/walk"/>
 
     <Button
-        android:id="@+id/btn_habit_create"
+        android:id="@+id/btn_habit_save"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/action_create_habit"/>
+        android:text="@string/action_save_habit"/>
 
 
     <TextView
         android:id="@+id/txt_habit_create_error"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@android:color/holo_red_dark"
+        android:textColor="@android:color/holo_red_dark"
         android:visibility="invisible"
         tools:text="Error!"/>
 </LinearLayout>

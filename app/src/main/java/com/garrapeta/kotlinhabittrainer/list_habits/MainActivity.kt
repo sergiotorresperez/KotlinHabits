@@ -6,7 +6,7 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.view.Menu
 import android.view.MenuItem
-import com.garrapeta.kotlinhabittrainer.create_habit.CreateHabitActitivy
+import com.garrapeta.kotlinhabittrainer.create_habit.CreateHabitActivity
 import com.garrapeta.kotlinhabittrainer.R
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -43,7 +43,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun onNewHabitCreated() {
-        openActivity(CreateHabitActitivy::class.java)
+        openActivity(CreateHabitActivity::class.java)
     }
 
     private fun openActivity(activityClass : Class<*>) {

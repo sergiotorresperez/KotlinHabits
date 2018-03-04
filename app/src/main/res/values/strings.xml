@@ -7,5 +7,5 @@
     <string name="habit_create_title_hint">Eat one apple</string>
     <string name="habit_create_description_hint">An apple a day keeps the doctor away</string>
     <string name="action_choose_image">Choose image</string>
-    <string name="action_create_habit">Create habit</string>
+    <string name="action_save_habit">Save habit</string>
 </resources>
