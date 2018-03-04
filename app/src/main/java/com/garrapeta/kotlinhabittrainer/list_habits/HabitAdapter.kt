@@ -9,8 +9,15 @@ import android.widget.TextView
 import com.garrapeta.kotlinhabittrainer.R
 import com.garrapeta.kotlinhabittrainer.domain.Habit
 
-internal class HabitAdapter(private val items: List<Habit>) : RecyclerView.Adapter<HabitAdapter.HabitViewHolder>() {
+internal class HabitAdapter : RecyclerView.Adapter<HabitAdapter.HabitViewHolder>() {
 
+    private val items = mutableListOf<Habit>()
+
+    fun setItems(newHabits : List<Habit>) {
+        items.clear()
+        items.addAll(newHabits)
+        notifyDataSetChanged()
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HabitViewHolder {
         val inflater = LayoutInflater.from(parent.context)

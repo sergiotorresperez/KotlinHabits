@@ -1,6 +1,7 @@
 package com.garrapeta.kotlinhabittrainer.list_habits
 
 import android.content.Intent
+import android.os.AsyncTask
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
@@ -8,10 +9,13 @@ import android.view.Menu
 import android.view.MenuItem
 import com.garrapeta.kotlinhabittrainer.R
 import com.garrapeta.kotlinhabittrainer.create_habit.CreateHabitActivity
+import com.garrapeta.kotlinhabittrainer.db.HabitDbTable
 import com.garrapeta.kotlinhabittrainer.domain.Habit
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
+
+    private val adapter = HabitAdapter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -20,10 +24,13 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun bindViews() {
-        val items = Habit.createDefaultHabits(this).toList()
-
-        recyclerview.adapter = HabitAdapter(items)
+        recyclerview.adapter = adapter
         recyclerview.layoutManager = LinearLayoutManager(this)
+    }
+
+    override fun onStart() {
+        super.onStart()
+        readHabits()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -39,6 +46,20 @@ class MainActivity : AppCompatActivity() {
             }
             else -> super.onOptionsItemSelected(item)
         }
+    }
+
+
+    private fun readHabits() {
+        object : AsyncTask<Void, Void, List<Habit>>() {
+            override fun doInBackground(vararg params: Void?): List<Habit> {
+                return HabitDbTable(this@MainActivity).readAll()
+            }
+
+            override fun onPostExecute(habits: List<Habit>) {
+                super.onPostExecute(habits)
+                adapter.setItems(habits)
+            }
+        }.execute()
     }
 
     private fun onNewHabitCreated() {
