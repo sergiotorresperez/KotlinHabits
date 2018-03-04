@@ -4,12 +4,7 @@ import android.content.ContentValues
 import android.content.Context
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import com.garrapeta.kotlinhabittrainer.domain.Habit
-import java.io.ByteArrayOutputStream
-
-
 
 class HabitDbTable(context : Context) {
 
@@ -20,7 +15,7 @@ class HabitDbTable(context : Context) {
         with(contentValues) {
             put(HabitEntry.COL_TITLE, habit.title)
             put(HabitEntry.COL_DESCRIPTION, habit.description)
-            put(HabitEntry.COL_IMAGE, toByteArray(habit.imageBitmap))
+            put(HabitEntry.COL_IMAGE, habit.imageBitmap.toByteArray())
         }
 
         val db: SQLiteDatabase = dbHelper.writableDatabase
@@ -31,47 +26,27 @@ class HabitDbTable(context : Context) {
         val habits = mutableListOf<Habit>()
 
         val db: SQLiteDatabase = dbHelper.writableDatabase
-        val cursor = db.query(HabitEntry.TABLE_NAME, null, null, null, null, null, null)
+        val projection = arrayOf(HabitEntry.COL_TITLE, HabitEntry.COL_DESCRIPTION, HabitEntry.COL_IMAGE)
+        val orderBy = "${HabitEntry.COL_ID} ASC"
+        val cursor = db.doQuery(table = HabitEntry.TABLE_NAME, columns = projection, orderBy = orderBy)
 
-        cursor.moveToFirst()
-        while (!cursor.isAfterLast) {
-            habits.add(createHabit(cursor))
-            cursor.moveToNext()
+        cursor.use {
+            it.moveToFirst()
+            while (!it.isAfterLast) {
+                habits.add(createHabit(it))
+                cursor.moveToNext()
+            }
         }
-        cursor.close()
 
         return habits
     }
 
     private fun createHabit(cursor: Cursor): Habit {
-        val title = cursor.getString(cursor.getColumnIndex(HabitEntry.COL_TITLE))
-        val description = cursor.getString(cursor.getColumnIndex(HabitEntry.COL_DESCRIPTION))
-        val imageBytes = cursor.getBlob(cursor.getColumnIndex(HabitEntry.COL_IMAGE))
-        val imageBitmap = fromByteArray(imageBytes)
+        val title = cursor.getString(HabitEntry.COL_TITLE)
+        val description = cursor.getString(HabitEntry.COL_DESCRIPTION)
+        val imageBitmap = cursor.getBitmap(HabitEntry.COL_IMAGE)
 
         return Habit(title, description, imageBitmap)
     }
 }
 
-private fun toByteArray(bitmap : Bitmap): ByteArray {
-    val stream = ByteArrayOutputStream()
-    bitmap.compress(Bitmap.CompressFormat.PNG, 0, stream)
-    return stream.toByteArray()
-}
-
-private fun fromByteArray(byteArray: ByteArray): Bitmap {
-    return BitmapFactory.decodeByteArray(byteArray, 0, byteArray.size)
-}
-
-private inline fun <T> SQLiteDatabase.transaction(transactionOperation: SQLiteDatabase.() -> T) : T {
-    beginTransaction()
-
-    return try {
-        val resultValue : T = transactionOperation()
-        setTransactionSuccessful()
-        resultValue
-    } finally {
-        endTransaction()
-        close()
-    }
-}
