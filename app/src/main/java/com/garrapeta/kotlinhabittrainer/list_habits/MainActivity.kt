@@ -6,8 +6,9 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.view.Menu
 import android.view.MenuItem
-import com.garrapeta.kotlinhabittrainer.create_habit.CreateHabitActivity
 import com.garrapeta.kotlinhabittrainer.R
+import com.garrapeta.kotlinhabittrainer.create_habit.CreateHabitActivity
+import com.garrapeta.kotlinhabittrainer.domain.Habit
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -19,9 +20,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun bindViews() {
-        val items = (1..300)
-                .map { HabitItem(it) }
-                .toList()
+        val items = Habit.createDefaultHabits(this).toList()
 
         recyclerview.adapter = HabitAdapter(items)
         recyclerview.layoutManager = LinearLayoutManager(this)

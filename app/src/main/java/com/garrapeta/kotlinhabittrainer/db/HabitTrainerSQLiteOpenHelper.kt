@@ -1,4 +1,4 @@
-package com.garrapeta.db
+package com.garrapeta.kotlinhabittrainer.db
 
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase

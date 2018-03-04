@@ -7,8 +7,9 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import com.garrapeta.kotlinhabittrainer.R
+import com.garrapeta.kotlinhabittrainer.domain.Habit
 
-internal class HabitAdapter(private val items: List<HabitItem>) : RecyclerView.Adapter<HabitAdapter.HabitViewHolder>() {
+internal class HabitAdapter(private val items: List<Habit>) : RecyclerView.Adapter<HabitAdapter.HabitViewHolder>() {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HabitViewHolder {
@@ -37,10 +38,10 @@ internal class HabitAdapter(private val items: List<HabitItem>) : RecyclerView.A
             }
         }
 
-        internal fun bind(habitItem: HabitItem) {
-            iconImageView.setImageResource(habitItem.imageResId)
-            titleTextView.text = habitItem.title
-            descriptionTextView.text = habitItem.description
+        internal fun bind(habit: Habit) {
+            iconImageView.setImageBitmap(habit.imageBitmap)
+            titleTextView.text = habit.title
+            descriptionTextView.text = habit.description
         }
 
     }
