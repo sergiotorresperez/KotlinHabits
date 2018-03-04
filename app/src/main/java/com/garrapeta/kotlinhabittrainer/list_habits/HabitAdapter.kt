@@ -1,4 +1,4 @@
-package com.garrapeta.kotlinhabittrainer
+package com.garrapeta.kotlinhabittrainer.list_habits
 
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import com.garrapeta.kotlinhabittrainer.R
 
 internal class HabitAdapter(private val items: List<HabitItem>) : RecyclerView.Adapter<HabitAdapter.HabitViewHolder>() {
 

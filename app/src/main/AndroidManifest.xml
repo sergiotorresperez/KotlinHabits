@@ -9,18 +9,19 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+
+        <activity android:name=".list_habits.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
-
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+
         <activity
-            android:name=".CreateHabitActitivy"
-            android:label="@string/title_activity_create_habit_actitivy"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:name=".create_habit.CreateHabitActitivy"
+            android:label="@string/title_activity_create_habit_actitivy">
         </activity>
+
     </application>
 
 </manifest>

@@ -1,34 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.garrapeta.kotlinhabittrainer.CreateHabitActitivy">
+    android:orientation="vertical"
+    tools:context="com.garrapeta.kotlinhabittrainer.create_habit.CreateHabitActitivy">
 
-    <android.support.design.widget.AppBarLayout
+    <EditText
+        android:id="@+id/et_habit_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.AppBarOverlay">
+        android:hint="@string/habit_create_title_hint"/>
 
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            app:popupTheme="@style/AppTheme.PopupOverlay"/>
-
-    </android.support.design.widget.AppBarLayout>
-
-    <include layout="@layout/content_create_habit_actitivy"/>
-
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
+    <EditText
+        android:id="@+id/et_habit_description"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/fab_margin"
-        app:srcCompat="@android:drawable/ic_dialog_email"/>
+        android:hint="@string/habit_create_description_hint"
+        android:lines="2"/>
 
-</android.support.design.widget.CoordinatorLayout>
+    <Button
+        android:id="@+id/btn_habit_choose_image"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/action_choose_image"/>
+
+    <ImageView
+        android:id="@+id/img_habit_image"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:src="@drawable/walk"/>
+
+    <Button
+        android:id="@+id/btn_habit_create"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/action_create_habit"/>
+
+
+    <TextView
+        android:id="@+id/txt_habit_create_error"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/holo_red_dark"
+        android:visibility="invisible"
+        tools:text="Error!"/>
+</LinearLayout>

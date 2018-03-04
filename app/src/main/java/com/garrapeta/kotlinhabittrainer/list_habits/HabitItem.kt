@@ -1,4 +1,6 @@
-package com.garrapeta.kotlinhabittrainer
+package com.garrapeta.kotlinhabittrainer.list_habits
+
+import com.garrapeta.kotlinhabittrainer.R
 
 internal data class HabitItem(val seed: Int) {
     val title = "Title $seed"
